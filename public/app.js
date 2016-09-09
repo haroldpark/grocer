@@ -6,11 +6,13 @@ angular.module('ingredient-check', [
 
   $stateProvider.state('search', {
     url: '/search',
-    templateUrl: '/search/search.html'
+    templateUrl: '/views/search.html',
+    controller: 'search'
   })
   .state('results', {
     url: '/results',
-    templateUrl: '/results/results.html'
+    templateUrl: '/views/results.html',
+    controller: 'results'
   });
 
 })
