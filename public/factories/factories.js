@@ -11,7 +11,7 @@ angular.module('ingredient-check')
     })
     .then( function (response) {
       console.log(response);
-        return response.data;
+        return response.data.hits;
       }).catch( function(error) {
         console.log(error.status, error);
       });

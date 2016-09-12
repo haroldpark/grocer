@@ -5,10 +5,6 @@ var http = require('http');
 
 app.use(bodyParser.json());
 app.use('/', express.static(__dirname + '/public'));
-// app.use(function(err, req, res, next) {
-//   console.error(err.stack);
-//   res.status(500).send('Something broke!');
-// });
 
 var port = process.env.PORT || 1337;
 
@@ -17,8 +13,8 @@ app.post('/api/getRecipes', function(req, res) {
   console.log('query', query)
 
   var options = {
-    host: '/api.edamam.com',
-    path: '/search?to=50&q=' + query + '&app_id=9bf0d886&app_key=58189d20d2000cb5f640fe9b43c5c629'
+    host: 'api.edamam.com',
+    path: '/search?to=10&q=' + query + '&app_id=9bf0d886&app_key=58189d20d2000cb5f640fe9b43c5c629'
   };
 
   http.get(options, function (response) {
