@@ -4,4 +4,50 @@
 <input ng-model="searchQuery" ></input>
 <input type="submit"></input>
 </form>
+
+  <div class="searchResults">
+    <div ng-Repeat="recipe in exampleData">
+      <!-- <div ng-Repeat="(key, val) in recipe['recipe']">
+      <b>{{key}}</b>: {{val}} <br>
+      </div> -->
+      <div class="recipeHeader">
+        <img src="{{recipe.recipe.image}}" alt="food" height="60" width="60">
+        <b>{{recipe.recipe.label}}</b>
+      </div>
+      <div class="recipeSource">
+        Source: <img src="{{recipe.recipe.sourceIcon}}" alt="source" height="20" width="20">
+        <a href="{{recipe.recipe.url}}">{{recipe.recipe.source}}</a>
+
+      </div>
+      <div class="recipeSummary">
+        <span>{{recipe.recipe.ingredients.length}} ingredients</span> |
+        <span>{{roundNumber(recipe.recipe.calories)}} calories</span>
+        <div>
+          <span ng-Repeat="healthlabel in recipe.recipe.healthLabels">{{healthlabel}}<span ng-show="!$last">, </span></span>
+        </div>
+      </div>
+
+      <div class="moreInfoButtons">
+        <button ng-click="moreIngredientInfo = !moreIngredientInfo; moreNutrientInfo = false" href="#">ingredients</button>
+        <button ng-click="moreNutrientInfo = !moreNutrientInfo; moreIngredientInfo = false">nutrients</button>
+      </div>
+
+
+        <div class="ingredients moreInfo" ng-show="moreIngredientInfo" >
+          {{recipe.recipe.yield}} servings
+          <span ng-Repeat="ingredient in recipe.recipe.ingredients" style="display: block"> {{ingredient.text}}</span>
+        </div>
+        <div class="nutrients moreInfo" ng-show="moreNutrientInfo">
+          <div class="nutrients" ng-Repeat="nutrient in recipe.recipe.totalNutrients">
+            {{nutrient.label}}: {{roundNumber(nutrient.quantity)}} {{nutrient.unit}}
+          </div>
+        </div>
+
+
+    </div>
+    <!-- <div ng-Repeat="recipe in exampleData">
+      {{key['uri']}}
+      <b>{{key}}</b>: {{val}} <br>
+    </div> -->
+  </div>
 </div>

@@ -1,5 +1,6 @@
 angular.module('ingredient-check', [
-  'ui.router'
+  'ui.router',
+  'ngAnimate'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/search');

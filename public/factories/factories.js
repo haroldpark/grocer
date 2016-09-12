@@ -17,8 +17,20 @@ angular.module('ingredient-check')
       });
   }
 
+  var deleteUnessaryRecipeData = function (data) {
+    for (var i=0; i<data.length; i++) {
+      delete data[i].recipe.shareAs;
+      delete data[i].recipe.cautions;
+      delete data[i].recipe.ingredientLines;
+      delete data[i].recipe.totalDaily;
+      delete data[i].recipe.totalWeight;
+      delete data[i].recipe.digest;
+    }
+    return data;
+  }
 
   return {
-    sendQueryToEdamam: sendQueryToEdamam
+    sendQueryToEdamam: sendQueryToEdamam,
+    deleteUnessaryRecipeData: deleteUnessaryRecipeData
   };
 }])
