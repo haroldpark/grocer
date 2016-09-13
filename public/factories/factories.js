@@ -1,18 +1,14 @@
 angular.module('ingredient-check')
 .factory('appFactory', ['$http', function($http) {
   var sendQueryToEdamam = function (query) {
-    console.log('we here', query)
     return $http({
       method: 'POST',
       url: '/api/getRecipes',
-      data: {
-        query: query
-      }
+      data: { query: query }
     })
-    .then( function (response) {
-      console.log(response);
+    .then(function (response) {
         return response.data.hits;
-      }).catch( function(error) {
+      }).catch(function(error) {
         console.log(error.status, error);
       });
   }
