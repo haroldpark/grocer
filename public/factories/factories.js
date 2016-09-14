@@ -1,5 +1,35 @@
 angular.module('ingredient-check')
 .factory('appFactory', ['$http', function($http) {
+
+  var groceryCart = [];
+
+  var watchGroceryCartChanges = function () {
+    console.log('hello there')
+    var shoppingList = {};
+    for (var i=0; i<groceryCart.length; i++) {
+      var recipeIngredientsArray = groceryCart[i].recipe.ingredients;
+      for (var j=0; j<groceryCart[i].recipe.ingredients.length; j++) {
+        var ingredientName = recipeIngredientsArray[j].food;
+        var ingredientQuantity = recipeIngredientsArray[j].quantity;
+        var ingredientMeasurement = recipeIngredientsArray[j].measure;
+        if (!shoppingList[ingredientName]) {
+          shoppingList[ingredientName] = {};
+        }
+
+        if (shoppingList[ingredientName][ingredientMeasurement]) {
+          shoppingList[ingredientName][ingredientMeasurement] += ingredientQuantity;
+        }
+        else {
+          shoppingList[ingredientName][ingredientMeasurement] = ingredientQuantity;
+        }
+
+      }
+    }
+    return shoppingList;
+    console.log('SHOOPING', shoppingList);
+  }
+
+
   var sendQueryToEdamam = function (query) {
     return $http({
       method: 'POST',
@@ -27,6 +57,8 @@ angular.module('ingredient-check')
 
   return {
     sendQueryToEdamam: sendQueryToEdamam,
-    deleteUnessaryRecipeData: deleteUnessaryRecipeData
+    deleteUnessaryRecipeData: deleteUnessaryRecipeData,
+    watchGroceryCartChanges: watchGroceryCartChanges,
+    groceryCart: groceryCart
   };
 }])

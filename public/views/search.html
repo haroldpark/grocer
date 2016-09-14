@@ -76,6 +76,17 @@
 
     </div>
     <div class="groceryListSubmitButtonContainer">
-      <button>MAKE SHOPPING LIST!</button>
+      <button>MAKE SHOPPING LIST!</button> <button>Preview list</button>
     </div>
+  </div>
+
+  <div>
+    <div ng-repeat="(ingredient, props) in shoppingList">
+
+      <div ng-repeat="(quantity, measurement) in props">
+        {{measurement}} {{quantity}} of {{ingredient}}
+
+      </div>
+    </div>
+
   </div>

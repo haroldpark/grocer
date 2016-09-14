@@ -1,11 +1,14 @@
 angular.module('ingredient-check')
 .controller('search', ['$scope', 'appFactory', function($scope, appFactory){
-  $scope.searchQuery, $scope.recipeData = [], $scope.groceryCart = [];
+  $scope.searchQuery, $scope.recipeData = [], $scope.groceryCart = appFactory.groceryCart, $scope.shoppingList;
 
   $scope.roundNumber = function (number) {
     return Math.floor(number, -1);
   }
 
+  $scope.$watch('groceryCart.length', function() {
+    $scope.shoppingList = appFactory.watchGroceryCartChanges();
+  });
 
   $scope.sendQuery = function (query) {
     appFactory.sendQueryToEdamam(query).then( function(data) {
@@ -17,6 +20,8 @@ angular.module('ingredient-check')
   }
 
   $scope.sendToGroceryCart = function (recipeIndex) {
+    var recipe = $scope.recipeData[recipeIndex];
+    // recipe.servings = insert here
     $scope.groceryCart.push($scope.recipeData[recipeIndex]);
     console.log('HERE IS GROCERY CART', $scope.groceryCart)
   }
