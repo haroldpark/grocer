@@ -18,6 +18,7 @@ angular.module('ingredient-check')
 
   $scope.sendToGroceryCart = function (recipeIndex) {
     $scope.groceryCart.push($scope.recipeData[recipeIndex]);
+    console.log('HERE IS GROCERY CART', $scope.groceryCart)
   }
 
   $scope.removeFromGroceryCart = function (recipeIndex) {
