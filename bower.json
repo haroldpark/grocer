@@ -1,10 +1,10 @@
 {
-  "name": "ingredient-check",
+  "name": "grocer",
   "description": "",
   "main": "server.js",
   "authors": [],
   "license": "ISC",
-  "homepage": "https://github.com/hyungkip/ingredient-check#readme",
+  "homepage": "https://github.com/hyungkip/grocer#readme",
   "ignore": [
     "**/.*",
     "node_modules",

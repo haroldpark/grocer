@@ -1,4 +1,4 @@
-angular.module('ingredient-check')
+angular.module('grocer')
 .factory('appFactory', ['$http', function($http) {
 
   var groceryCart = [];

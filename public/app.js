@@ -1,4 +1,4 @@
-angular.module('ingredient-check', [
+angular.module('grocer', [
   'ui.router',
   'ngAnimate'
 ])

@@ -1,4 +1,4 @@
-angular.module('ingredient-check')
+angular.module('grocer')
 .controller('search', ['$scope', 'appFactory', function($scope, appFactory){
   $scope.searchQuery, $scope.recipeData = [], $scope.groceryCart = appFactory.groceryCart;
   $scope.shoppingList;
