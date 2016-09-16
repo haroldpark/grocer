@@ -1,7 +1,7 @@
 {
   "name": "grocer",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "authors": [],
   "license": "ISC",
   "homepage": "https://github.com/hyungkip/grocer#readme",
