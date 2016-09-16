@@ -2,31 +2,81 @@ angular.module('ingredient-check')
 .factory('appFactory', ['$http', function($http) {
 
   var groceryCart = [];
+  function checkMeasureAndQuantityEquality (measure, name) {
+    return measure == name || measure + 's' == name;
+  }
+
+  function formatSMSMessage (shoppingList) {
+    var msg = '\n';
+    for (var prop in shoppingList) {
+      for (var deepProp in shoppingList[prop]) {
+        msg += shoppingList[prop][deepProp];
+        msg += deepProp;
+        msg += ' ';
+        msg += prop;
+        msg += '\n';
+      }
+    }
+    return msg;
+  }
+
+  var checkIfRecipeIsInCart = function (label) {
+    for (var i=0; i<groceryCart.length; i++) {
+      if (groceryCart[i].recipe.label == label) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  var sendShoppingListToTwilioAPI = function (phoneNumber, shoppingList) {
+    var smsMessage = formatSMSMessage(shoppingList);
+    if (smsMessage.length) {
+      return $http({
+        method: 'POST',
+        url: '/api/sendList',
+        data: {
+          number: phoneNumber,
+          list: smsMessage
+        }
+      })
+      .then(function (response) {
+
+        }).catch(function(error) {
+          console.log(error.status, error);
+        });
+    }
+  }
 
   var watchGroceryCartChanges = function () {
-    console.log('hello there')
     var shoppingList = {};
     for (var i=0; i<groceryCart.length; i++) {
+      var ingredientServingRatio = groceryCart[i].recipe.yield/groceryCart[i].originalYield || 1;
+
       var recipeIngredientsArray = groceryCart[i].recipe.ingredients;
       for (var j=0; j<groceryCart[i].recipe.ingredients.length; j++) {
         var ingredientName = recipeIngredientsArray[j].food;
         var ingredientQuantity = recipeIngredientsArray[j].quantity;
         var ingredientMeasurement = recipeIngredientsArray[j].measure;
+
+        if(checkMeasureAndQuantityEquality(ingredientMeasurement, ingredientName)) {
+          ingredientMeasurement = '';
+        }
+
         if (!shoppingList[ingredientName]) {
           shoppingList[ingredientName] = {};
         }
 
         if (shoppingList[ingredientName][ingredientMeasurement]) {
-          shoppingList[ingredientName][ingredientMeasurement] += ingredientQuantity;
+          shoppingList[ingredientName][ingredientMeasurement] += ingredientQuantity * ingredientServingRatio;
         }
         else {
-          shoppingList[ingredientName][ingredientMeasurement] = ingredientQuantity;
+          shoppingList[ingredientName][ingredientMeasurement] = ingredientQuantity * ingredientServingRatio;
         }
 
       }
     }
     return shoppingList;
-    console.log('SHOOPING', shoppingList);
   }
 
 
@@ -59,6 +109,8 @@ angular.module('ingredient-check')
     sendQueryToEdamam: sendQueryToEdamam,
     deleteUnessaryRecipeData: deleteUnessaryRecipeData,
     watchGroceryCartChanges: watchGroceryCartChanges,
-    groceryCart: groceryCart
+    groceryCart: groceryCart,
+    checkIfRecipeIsInCart: checkIfRecipeIsInCart,
+    sendShoppingListToTwilioAPI: sendShoppingListToTwilioAPI
   };
 }])

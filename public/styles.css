@@ -1,147 +1,205 @@
+@font-face {
+    font-family: supermarket;
+    src: url(VTCSuperMarketSaleRegular.ttf);
+}
+body,
+html {
+    height: 100%;
+}
 body {
-  background-color: #ddd;
+    background-color: #ddd;
+    display: flex;
+    flex-flow: column;
+    height: 100%;
 }
-
 .header {
-  width: 100%;
-  height: 100px;
-  text-align: center;
+    flex: 0 1 auto;
+    margin: 10px 0 20px 50px;
 }
-
 .header h3 {
-  display: inline-block;
-  top: 20px;
+    display: inline-block;
+    top: 20px;
+    font-family: supermarket;
+    font-size: 50px;
 }
-
+.header img {
+    mix-blend-mode: multiply;
+    width: 50px;
+    height: auto;
+    margin: 0 10px 30px 0
+}
 .navbar {
-  /*height: 50px;*/
+    /*height: 50px;*/
 }
-
 .navbar ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
 }
-
 .navbar li {
-  float: left;
+    float: left;
 }
-
 .navbar li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+.navbar li a:hover {
+    background-color: #111;
+}
+.main {
+    flex: 1 1 auto;
+    position: relative;
 }
 
-li a:hover {
-  background-color: #111;
-}
-
-
-/*Search results div*/
 .searchResults {
-  width: 65%;
-  float: left;
-  padding-right: 10px;
-  /*background-color: #C1E1A6;*/
+    width: 65%;
+    float: left;
+    padding-right: 10px;
+    top: 0;
+    bottom: 0;
+    position: absolute;
 }
-
 .searchForm {
-  text-align: center;
+    text-align: center;
 }
-
+.recipeCardsContainer {
+    min-height: 100px;
+}
 .recipeCard {
-  padding: 10px;
-  margin: 10px;
-  border-style: solid;
-  border-color: gray;
-  border-radius: 5px;
-  border-width: 1px;
-  background-color: white;
-  /*background-color: #FDF3E7;*/
+    padding: 10px;
+    margin: 10px;
+    border-style: solid;
+    border-color: gray;
+    border-radius: 5px;
+    border-width: 1px;
+    background-color: white;
 }
 .recipeCard .recipeInfo {
-  width: 80%;
-  display: inline-block;
+    width: 80%;
+    display: inline-block;
 }
-
 .recipeCard .recipeButtons {
-  /*position: absolute;*/
-  float: right;
-  width: 20%;
-  bottom: 100px;
-  display: inline-block;
+    float: right;
+    width: 20%;
+    bottom: 100px;
+    display: inline-block;
 }
-
 .recipeCard .healthLabel {
-  font-size: 12px;
-  font-style: italic;
+    font-size: 12px;
+    font-style: italic;
 }
-
 .recipeInfo .recipeHeader {
-  padding-bottom: 5px;
-  margin-bottom: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
 }
-
-.recipeButtons {
-  /*vertical-align: middle;*/
-}
-
-
 .recipeButtons button {
-  /*top: 50%;*/
-  width: 97px;
-  float: right;
+    float: right;
 }
-
+.moreInfoPane ul {
+    list-style-type: none;
+    margin: 0;
+    margin-top: 10px;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+.moreInfoPane li {
+    float: left;
+}
+.moreInfoPane li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 5px 5px;
+    text-decoration: none;
+}
+.moreInfoPane li a:hover {
+    background-color: #111;
+}
 .groceryCart {
-  width: 35%;
-  float: right;
-  height: 100%;
-  background-color: #55AE3A;
+    width: 35%;
+    background-color: #55AE3A;
+    height: 90%;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    max-height: 100vh;
+    padding: 10px;
+    border-radius: 15px;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
 }
-
 .groceryCartCard {
-  background-color: white;
-  padding: 10px;
-  border-style: solid;
-  border-width: 1px;
-  margin-bottom: -1px;
+    background-color: white;
+    padding: 5px;
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: -1px;
 }
-
-
-.groceryCartHeader div{
-  display: inline-block;
+.groceryCartRecipe div {
+    display: inline-block;
 }
-
+.groceryCartCardContainer {
+    overflow-y: auto;
+    height: calc(100% - 105px);
+    background-color: #bbb;
+}
 .groceryCartServings input {
-  width: 30px;
+    width: 30px;
+    margin-bottom: 10px;
 }
-
 .groceryCartRecipePic {
-  width: 45px;
+    width: 45px;
+    display: inline-block;
 }
 .groceryCartRecipeLabel {
-  width: calc(100% - 80px);
-  overflow-wrap: break-word;
-  line-height: 1;
+    width: calc(100% - 80px);
+    overflow-wrap: break-word;
+    line-height: 1;
 }
-
-
 .groceryCartRecipeDeselect {
-  width: 15px;
+    width: 15px;
 }
-
-.groceryListNameInputContainer {
-  text-align: center;
+.groceryCartHeader {
+    text-align: center;
+    height: 30px;
+    font-size: 20px;
 }
-
+.groceryCartHeader {
+    font-family: supermarket;
+}
 .groceryListSubmitButtonContainer {
-  text-align: center;
+    text-align: center;
+    height: 75px;
+    width: 100%;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+}
+.groceryListSubmitButtonContainer input {
+    margin-bottom: 10px;
+}
+.shoppingListPreview {
+    position: fixed;
+    bottom: 0;
+    right: 0;    
+    background-color: #191919;
+    color: white;
+    overflow-y: auto;
+    max-height: 70%;
+    padding: 20px;
+    border-radius: 15px;
+}
+.shoppingListPreview span {
+    top: 10px;
+    right: 10px;
+    position: absolute;
 }

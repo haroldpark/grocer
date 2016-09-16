@@ -1,92 +1,88 @@
-
-
-
-
-  <div class="searchResults">
+<div class="searchResults">
     <form class="searchForm" ng-submit="sendQuery(searchQuery)">
-      <input ng-model="searchQuery" placeholder="Search for Recipes..."></input>
-      <input type="submit"></input>
+        <input ng-model="searchQuery" placeholder="Search for Recipes..."></input>
+        <input class="btn-primary" type="submit"></input>
     </form>
-    <div class="recipeCard" ng-Repeat="recipe in recipeData">
-      <div class="recipeInfo">
-        <div class="recipeHeader">
-          <img src="{{recipe.recipe.image}}" alt="food" height="60" width="60">
-          <b>{{recipe.recipe.label}}</b>
+    <div class="recipeCardsContainer">
+        <div class="recipeCard" ng-Repeat="recipe in recipeData">
+            <div class="recipeInfo">
+                <div class="recipeHeader">
+                    <img src="{{recipe.recipe.image}}" alt="food" height="60" width="60">
+                    <b>{{recipe.recipe.label}}</b>
+                </div>
+                <div class="recipeSource">
+                    Source: <img src="{{recipe.recipe.sourceIcon}}" alt="source" height="20" width="20">
+                    <a href="{{recipe.recipe.url}}">{{recipe.recipe.source}}</a>
+                </div>
+                <div class="recipeSummary">
+                    <span>{{recipe.recipe.ingredients.length}} ingredients</span> |
+                    <span>{{roundNumber(recipe.recipe.calories)}} calories</span>
+                    <div class="healthLabel">
+                        <span ng-Repeat="healthlabel in recipe.recipe.healthLabels">{{healthlabel}}<span ng-show="!$last">, </span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="recipeButtons">
+                <button class="btn btn-success btn-xs" ng-click="sendToGroceryCart($index)">Add to Cart</button>
+                <button class="btn btn-warning btn-xs" ng-click="moreInfo = !moreInfo; moreIngredientInfo = true" href="#">More Info</button>
+            </div>
+            <div class="moreInfoPane" ng-show="moreInfo">
+                <ul>
+                    <li><a class="tablinks" ng-click="moreIngredientInfo = !ingredientInfo; moreNutrientInfo = false">Ingredients</a>
+                    </li>
+                    <li><a class="tablinks" ng-click="moreNutrientInfo = !moreNutrientInfo; moreIngredientInfo = false">Nutrients</a>
+                    </li>
+                </ul>
+                <div class="ingredients" ng-show="moreIngredientInfo">
+                    {{recipe.recipe.yield}} servings
+                    <span ng-Repeat="ingredient in recipe.recipe.ingredients" style="display: block"> {{ingredient.text}}</span>
+                </div>
+                <div class="nutrients" ng-show="moreNutrientInfo">
+                    <div ng-Repeat="nutrient in recipe.recipe.totalNutrients">
+                        {{nutrient.label}}: {{roundNumber(nutrient.quantity)}} {{nutrient.unit}}
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="recipeSource">
-          Source: <img src="{{recipe.recipe.sourceIcon}}" alt="source" height="20" width="20">
-          <a href="{{recipe.recipe.url}}">{{recipe.recipe.source}}</a>
-
-        </div>
-        <div class="recipeSummary">
-          <span>{{recipe.recipe.ingredients.length}} ingredients</span> |
-          <span>{{roundNumber(recipe.recipe.calories)}} calories</span>
-          <div class="healthLabel">
-            <span ng-Repeat="healthlabel in recipe.recipe.healthLabels">{{healthlabel}}<span ng-show="!$last">, </span></span>
-          </div>
-        </div>
-      </div>
-
-      <div class="recipeButtons">
-        <button class="btn btn-success" ng-click="sendToGroceryCart($index)">Add to Cart</button>
-        <button class="btn btn-warning" ng-click="moreInfo = !moreInfo; moreIngredientInfo = true" href="#">More Info</button>
-
-      </div>
-
-      <div class="moreInfoPane" ng-show="moreInfo">
-        <ul>
-          <li><a href="#" class="tablinks" ng-click="moreIngredientInfo = !ingredientInfo; moreNutrientInfo = false">Ingredients</a></li>
-          <li><a href="#" class="tablinks" ng-click="moreNutrientInfo = !moreNutrientInfo; moreIngredientInfo = false">Nutrients</a></li>
-        </ul>
-
-        <div class="ingredients" ng-show="moreIngredientInfo">
-          {{recipe.recipe.yield}} servings
-          <span ng-Repeat="ingredient in recipe.recipe.ingredients" style="display: block"> {{ingredient.text}}</span>
-        </div>
-        <div class="nutrients" ng-show="moreNutrientInfo">
-          <div ng-Repeat="nutrient in recipe.recipe.totalNutrients">
-            {{nutrient.label}}: {{roundNumber(nutrient.quantity)}} {{nutrient.unit}}
-          </div>
-        </div>
-      </div>
-
     </div>
-  </div>
+</div>
 
-
-  <div class="groceryCart">
-    <div class="groceryListNameInputContainer">
-      <input placeholder="Name your grocery list"></input>
+<div class="groceryCart">
+    <div class="groceryCartHeader">
+        <span class="	glyphicon glyphicon-shopping-cart"></span> Shopping Cart
     </div>
-    <div class="groceryCartCard" ng-Repeat="recipe in groceryCart">
-      <div class="groceryCartServings">
-        <input value="{{recipe.recipe.yield}}"></input> servings of :
-      </div>
-      <div class="groceryCartHeader">
-        <div class="groceryCartRecipePic">
-          <img src="{{recipe.recipe.image}}" alt="food" height="45" width="45">
+    <div class="groceryCartCardContainer">
+        <div class="groceryCartCard" ng-Repeat="recipe in groceryCart">
+            <div class="groceryCartServings">
+                <input value="{{recipe.recipe.yield}}" ng-model="groceryCart[$index].recipe.yield"></input> servings of :
+            </div>
+            <div class="groceryCartRecipe">
+                <div class="groceryCartRecipePic">
+                    <img src="{{recipe.recipe.image}}" alt="food" height="45" width="45">
+                </div>
+                <div class="groceryCartRecipeLabel">
+                    <span>{{recipe.recipe.label}}</span>
+                </div>
+                <div class="groceryCartRecipeDeselect">
+                    <span ng-click="removeFromGroceryCart($index)">&#10006</span>
+                </div>
+            </div>
         </div>
-        <div class="groceryCartRecipeLabel">
-          <b>{{recipe.recipe.label}}</b>
-        </div>
-        <div class="groceryCartRecipeDeselect">
-          <span ng-click="removeFromGroceryCart($index)">&#10006</span>
-        </div>
-      </div>
-
     </div>
     <div class="groceryListSubmitButtonContainer">
-      <button>MAKE SHOPPING LIST!</button> <button>Preview list</button>
+        <input ng-model="phoneNumber" placeholder="Enter Phone Number"></input>
+        <button class="btn btn-primary" ng-click="sendShoppingListAsSMS(phoneNumber)">Send list to my phone!</button>
+        <button class="btn btn-warning" ng-click="previewList=true">Preview list</button>
     </div>
-  </div>
+</div>
 
-  <div>
-    <div ng-repeat="(ingredient, props) in shoppingList">
-
-      <div ng-repeat="(quantity, measurement) in props">
-        {{measurement}} {{quantity}} of {{ingredient}}
-
-      </div>
+<div ng-show="previewList">
+    <div class="shoppingListPreview">
+        <b>Shopping List Preview: </b><span ng-click="previewList=false">&#10006</span>
+        <div ng-repeat="(ingredient, props) in shoppingList">
+            <div ng-repeat="(measurement, quantity) in props">
+                - {{quantity}} {{measurement}} {{ingredient}}
+            </div>
+        </div>
     </div>
-
-  </div>
+</div>

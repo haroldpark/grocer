@@ -1,19 +1,18 @@
 angular.module('ingredient-check')
 .controller('search', ['$scope', 'appFactory', function($scope, appFactory){
-  $scope.searchQuery, $scope.recipeData = [], $scope.groceryCart = appFactory.groceryCart, $scope.shoppingList;
-
+  $scope.searchQuery, $scope.recipeData = [], $scope.groceryCart = appFactory.groceryCart;
+  $scope.shoppingList;
   $scope.roundNumber = function (number) {
     return Math.floor(number, -1);
   }
 
-  $scope.$watch('groceryCart.length', function() {
+  $scope.$watch('groceryCart', function() {
     $scope.shoppingList = appFactory.watchGroceryCartChanges();
-  });
+  }, true);
 
   $scope.sendQuery = function (query) {
     appFactory.sendQueryToEdamam(query).then( function(data) {
       $scope.recipeData = appFactory.deleteUnessaryRecipeData(data);
-      console.log($scope.recipeData);
     }).catch(function(error) {
       console.log(error);
     });
@@ -21,13 +20,20 @@ angular.module('ingredient-check')
 
   $scope.sendToGroceryCart = function (recipeIndex) {
     var recipe = $scope.recipeData[recipeIndex];
-    // recipe.servings = insert here
-    $scope.groceryCart.push($scope.recipeData[recipeIndex]);
-    console.log('HERE IS GROCERY CART', $scope.groceryCart)
+    var recipeName = recipe.recipe.label;
+    if(!appFactory.checkIfRecipeIsInCart(recipeName)) {
+      recipe.originalYield = recipe.recipe.yield;
+      $scope.groceryCart.push($scope.recipeData[recipeIndex]);
+    }
+
   }
 
   $scope.removeFromGroceryCart = function (recipeIndex) {
     $scope.groceryCart.splice(recipeIndex, 1);
+  }
+
+  $scope.sendShoppingListAsSMS = function (phoneNumber) {
+    appFactory.sendShoppingListToTwilioAPI(phoneNumber, $scope.shoppingList);
   }
 
 }])
