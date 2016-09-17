@@ -14,7 +14,12 @@ body {
 }
 .header {
     flex: 0 1 auto;
-    margin: 10px 0 20px 50px;
+    padding: 10px 0 20px 50px;
+    background: ; /* For browsers that do not support gradients */
+   background: -webkit-linear-gradient(white, #ddd); /* For Safari 5.1 to 6.0 */
+   background: -o-linear-gradient(white, #ddd); /* For Opera 11.1 to 12.0 */
+   background: -moz-linear-gradient(white, #ddd); /* For Firefox 3.6 to 15 */
+   background: linear-gradient(white, #ddd); /* Standard syntax */
 }
 .header h3 {
     display: inline-block;
@@ -99,6 +104,13 @@ body {
     border-bottom-style: solid;
     border-bottom-width: 1px;
 }
+
+@media screen and (max-width: 900px) {
+  .recipeHeader b {
+    display: block;
+  }
+}
+
 .recipeButtons button {
     float: right;
 }
@@ -126,7 +138,7 @@ body {
 .groceryCart {
     width: 35%;
     background-color: #55AE3A;
-    height: 90%;
+    height: 100%;
     right: 0;
     bottom: 0;
     position: fixed;
@@ -143,34 +155,65 @@ body {
     border-style: solid;
     border-width: 1px;
     margin-bottom: -1px;
+    float: left;
+    width: 100%;
+    /*clear: both;*/
 }
 .groceryCartRecipe div {
     display: inline-block;
 }
 .groceryCartCardContainer {
     overflow-y: auto;
-    height: calc(100% - 105px);
+    height: calc(100% - 120px);
     background-color: #bbb;
+
 }
+
+@media screen and (max-width: 451px) {
+  .groceryCartCardContainer {
+      overflow-y: auto;
+      height: calc(100% - 165px);
+      background-color: #bbb;
+
+  }
+}
+
 .groceryCartServings input {
     width: 30px;
     margin-bottom: 10px;
 }
 .groceryCartRecipePic {
     width: 45px;
-    display: inline-block;
+    /*display: inline-block;*/
+    float: left;
+    margin-right: 5px;
 }
+
+.groceryCartRecipePic {
+  display: block;
+}
+
 .groceryCartRecipeLabel {
     width: calc(100% - 80px);
     overflow-wrap: break-word;
     line-height: 1;
 }
+
+@media screen and (max-width: 550px) {
+  .groceryCartRecipePic img {
+    display: none;
+  }
+  .groceryCartRecipeLabel {
+      width: calc(100% - 15px);
+  }
+}
 .groceryCartRecipeDeselect {
     width: 15px;
+    float: right;
 }
 .groceryCartHeader {
     text-align: center;
-    height: 30px;
+    /*height: 30px;*/
     font-size: 20px;
 }
 .groceryCartHeader {
@@ -184,13 +227,22 @@ body {
     right: 0;
     position: absolute;
 }
+@media screen and (max-width: 470px) {
+  .groceryListSubmitButtonContainer {
+      height: 100px;
+
+  }
+}
+
+
 .groceryListSubmitButtonContainer input {
     margin-bottom: 10px;
+    width: 90%;
 }
 .shoppingListPreview {
     position: fixed;
     bottom: 0;
-    right: 0;    
+    right: 0;
     background-color: #191919;
     color: white;
     overflow-y: auto;

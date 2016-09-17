@@ -22,7 +22,7 @@ app.post('/api/getRecipes', function(req, res) {
   var params = '&app_id=9bf0d886&app_key=58189d20d2000cb5f640fe9b43c5c629';
   var options = {
     host: 'api.edamam.com',
-    path: '/search?to=10&q=' + query + params
+    path: '/search?to=20&q=' + query + params
   };
 
   http.get(options, function (response) {
