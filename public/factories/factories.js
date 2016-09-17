@@ -31,6 +31,7 @@ angular.module('grocer')
 
   var sendShoppingListToTwilioAPI = function (phoneNumber, shoppingList) {
     var smsMessage = formatSMSMessage(shoppingList);
+    console.log('hello there i am here', smsMessage);
     if (smsMessage.length) {
       return $http({
         method: 'POST',
