@@ -3,6 +3,7 @@ Search up recipes and have the ingredients sent right to your phone
 
 ## Installation
 ```
+git clone https://github.com/haroldpark/grocer.git
 cd grocer
 npm install
 ```
